@@ -3,7 +3,6 @@ package uuidflag
 
 import "wvh/uuid"
 
-
 // Uuid wraps UUID.
 type Uuid struct {
 	uuid.UUID

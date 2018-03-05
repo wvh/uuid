@@ -17,19 +17,18 @@ package uuid
 import (
 	"crypto/rand"
 	"encoding/hex"
-	"time"
 	"errors"
+	"time"
 )
 
 // document offsets and lengths
 const (
-	UUID_BYTES = 16
-	UUID_RANDOM_BYTES = 9
-	UUID_RANDOM_OFFSET = 7
-	UUID_STRING_LENGTH = 32
+	UUID_BYTES                     = 16
+	UUID_RANDOM_BYTES              = 9
+	UUID_RANDOM_OFFSET             = 7
+	UUID_STRING_LENGTH             = 32
 	UUID_STRING_LENGTH_WITH_DASHES = 36
 )
-
 
 var (
 	// ErrInvalidUUID means we failed to parse the given uuid.
@@ -40,12 +39,11 @@ var (
 // UUID is an alias for an array of 16 bytes.
 type UUID [UUID_BYTES]byte
 
-
 // NewUUID creates a new unix time stamp based UUID.
 func NewUUID() (UUID, error) {
 	var ret UUID
 
-	ms := uint64(time.Now().UnixNano()/1000)
+	ms := uint64(time.Now().UnixNano() / 1000)
 
 	_, err := rand.Read(ret[UUID_RANDOM_OFFSET:])
 	if err != nil {
@@ -53,13 +51,12 @@ func NewUUID() (UUID, error) {
 	}
 
 	for i := 6; i >= 0; i-- {
-		ret[i] = byte(ms&0xff)
+		ret[i] = byte(ms & 0xff)
 		ms >>= 8
 	}
 
 	return ret, nil
 }
-
 
 // MustNewUUID calls NewUUID and panics on error.
 func MustNewUUID() UUID {
@@ -70,42 +67,36 @@ func MustNewUUID() UUID {
 	return uuid
 }
 
-
 // String returns the UUID in string form (without dashes).
 func (u UUID) String() string {
 	return hex.EncodeToString(u[:])
 }
-
 
 // Array returns a ref to underlying type [16]byte, for modification.
 func (u *UUID) Array() *[16]byte {
 	return (*[16]byte)(u)
 }
 
-
 // Bytes returns the UUID as a byte slice.
 func (u UUID) Bytes() []byte {
 	return u[:]
 }
-
 
 // ToTime converts the unix time stamp inside the UUID to a time.Time.
 func (u UUID) ToTime() time.Time {
 	var ms uint64
 
 	for i := uint(0); i <= 6; i++ {
-		ms += uint64(u[6-i])<<(8*i)
+		ms += uint64(u[6-i]) << (8 * i)
 	}
 
 	return time.Unix(0, int64(ms)*1000)
 }
 
-
 // MarshalText implements the encoding.TextMarshaler interface (since go 1.2).
 func (u UUID) MarshalText() ([]byte, error) {
 	return []byte(u.String()), nil
 }
-
 
 // UnmarshalText implements the encoding.TextUnmarshaler interface (since go 1.2).
 func (u *UUID) UnmarshalText(text []byte) error {
@@ -126,12 +117,10 @@ func (u *UUID) UnmarshalText(text []byte) error {
 	return nil
 }
 
-
 // MarshalBinary implements the encoding.BinaryMarshaler interface (since go 1.2).
 func (u UUID) MarshalBinary() ([]byte, error) {
 	return u.Bytes(), nil
 }
-
 
 // UnmarshalBinary implements the encoding.BinaryUnmarshaler interface (since go 1.2).
 func (u *UUID) UnmarshalBinary(b []byte) error {
@@ -142,20 +131,18 @@ func (u *UUID) UnmarshalBinary(b []byte) error {
 	return nil
 }
 
-
 // hexOnly filters any non-hexadecimal characters out of a string.
 func hexOnly(s string) string {
 	b := make([]byte, len(s))
 	i := 0
 	for _, c := range s {
 		if c >= 'A' && c <= 'F' || c >= 'a' && c <= 'f' || c >= '0' && c <= '9' {
-			b[i] = byte(c&0x7f)
+			b[i] = byte(c & 0x7f)
 			i++
 		}
 	}
 	return string(b[:i])
 }
-
 
 // hexOnlyBytes filters the given slice for valid hex characters.
 func hexOnlyBytes(b []byte) []byte {
@@ -169,18 +156,16 @@ func hexOnlyBytes(b []byte) []byte {
 	return nb
 }
 
-
 // FromBytes takes a byte slice and returns a UUID and optionally an error.
 func FromBytes(b []byte) (UUID, error) {
 	if len(b) != UUID_BYTES {
 		return UUID{}, ErrInvalidUUID
 	}
-	
+
 	var uuid UUID
 	copy(uuid[:], b)
 	return uuid, nil
 }
-
 
 // FromString returns a UUID object from a given string and optionally an error.
 func FromString(s string) (UUID, error) {
@@ -204,14 +189,12 @@ func FromString(s string) (UUID, error) {
 	return uuid, nil
 }
 
-
 // FromStringUnsafe returns a UUID object from a given string, ignoring any errors.
 // (This function just calls FromString() and throws away the error.)
 func FromStringUnsafe(s string) UUID {
 	u, _ := FromString(s)
 	return u
 }
-
 
 // MustFromString returns a UUID object from a given string. It panics if the string can't be parsed.
 // (This function just calls FromString() and panics on error.)
