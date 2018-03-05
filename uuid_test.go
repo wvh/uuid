@@ -85,18 +85,18 @@ func TestMarshal(t *testing.T) {
 
 	// UnmarshalBinary
 	uBytes := u.Bytes()
-	var newUuid UUID
-	err = newUuid.UnmarshalBinary(uBytes)
+	var newUUID UUID
+	err = newUUID.UnmarshalBinary(uBytes)
 	if err != nil {
 		t.Errorf("Error for UnmarshalBinary: %s", err)
 	}
-	if u != newUuid {
-		t.Errorf("original and UnmarshalBinary not equal: %s != %s", u, newUuid)
+	if u != newUUID {
+		t.Errorf("original and UnmarshalBinary not equal: %s != %s", u, newUUID)
 	}
 	t.Logf("passed UnmarshalBinary test")
 
 	// MarshalBinary
-	bin, err := newUuid.MarshalBinary()
+	bin, err := newUUID.MarshalBinary()
 	if err != nil {
 		t.Errorf("Error for MarshalBinary: %s", err)
 	}
@@ -106,7 +106,7 @@ func TestMarshal(t *testing.T) {
 	t.Logf("passed MarshalBinary test")
 	
 	// MarshalText
-	text, err := newUuid.MarshalText()
+	text, err := newUUID.MarshalText()
 	if err != nil {
 		t.Errorf("Error for MarshalText: %s", err)
 	}   
@@ -115,13 +115,13 @@ func TestMarshal(t *testing.T) {
 	}
 	t.Logf("passed MarshalText test")
 	
-	var thirdUuid UUID
-	err = thirdUuid.UnmarshalText(text)
+	var thirdUUID UUID
+	err = thirdUUID.UnmarshalText(text)
 	if err != nil {
 		t.Errorf("Error for UnmarshalText: %s", err)
 	}   
-	if u != thirdUuid {
-		t.Errorf("original and UnmarshalText not equal: %s != %s", u.String(), thirdUuid.String())
+	if u != thirdUUID {
+		t.Errorf("original and UnmarshalText not equal: %s != %s", u.String(), thirdUUID.String())
 	}
 	t.Logf("passed UnmarshalText test")
 }

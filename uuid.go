@@ -21,8 +21,8 @@ import (
 	"errors"
 )
 
+// document offsets and lengths
 const (
-	// document offsets and lengths
 	UUID_BYTES = 16
 	UUID_RANDOM_BYTES = 9
 	UUID_RANDOM_OFFSET = 7
@@ -32,7 +32,7 @@ const (
 
 
 var (
-	// failed to parse uuid
+	// ErrInvalidUUID means we failed to parse the given uuid.
 	ErrInvalidUUID = errors.New("error parsing uuid")
 	//NullUuid UUID = UUID{}
 )
