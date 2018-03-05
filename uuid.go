@@ -22,6 +22,7 @@ import (
 )
 
 const (
+	// document offsets and lengths
 	UUID_BYTES = 16
 	UUID_RANDOM_BYTES = 9
 	UUID_RANDOM_OFFSET = 7
@@ -31,10 +32,12 @@ const (
 
 
 var (
+	// failed to parse uuid
 	ErrInvalidUUID = errors.New("error parsing uuid")
 	//NullUuid UUID = UUID{}
 )
 
+// UUID is an alias for an array of 16 bytes.
 type UUID [UUID_BYTES]byte
 
 
@@ -58,7 +61,7 @@ func NewUUID() (UUID, error) {
 }
 
 
-// MustNewUUid calls NewUUID and panics on error.
+// MustNewUUID calls NewUUID and panics on error.
 func MustNewUUID() UUID {
 	uuid, err := NewUUID()
 	if err != nil {

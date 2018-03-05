@@ -38,9 +38,8 @@ func (u *Uuid) Get() uuid.UUID {
 func (u *Uuid) String() string {
 	if u.set {
 		return u.UUID.String()
-	} else {
-		return ""
 	}
+	return ""
 }
 
 // IsSet indicates whether the UUID value was set, i.e. non-zero byte array.
