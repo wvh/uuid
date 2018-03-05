@@ -1,4 +1,5 @@
 language: go
+# only test 1.8 as earliest version and latest go master
 go:
   - "1.8.x"
   - master
