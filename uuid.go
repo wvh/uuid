@@ -1,6 +1,6 @@
 // Copyright 2014–2016 Wouter Van Hemel
 
-// Package uuid generates a UUID based on a Unix time stamp (similar to one of CouchDB's UUID options).
+// Package uuid generates a 128-bit UUID based on Unix time (similar to one of CouchDB's UUID options).
 //
 // For example:
 //
@@ -8,9 +8,9 @@
 //    ----------------- 7 bytes, unix time in hex microseconds
 //                     ---------------------- 9 bytes, random data
 //
-// The benefits of this form of UUID are chronological sortability, which is good for database key usage, and a measure of protection against predictability, since it carries at least 72 bits of entropy (9 x 8b). Note that this doesn't make it a good choice for cryptographic purposes.
+// The benefits of this form of UUID are chronological sortability, which is good for database key usage, and a measure of protection against predictability, since it carries at least 72 bits of entropy (9 x 8b). Note that this doesn't necessarily make it a good choice for cryptographic purposes.
 //
-// This package prefers the UUID form without dashes, as they're especially useless in this format.
+// This package defaults to the UUID form without dashes, as they're not particularly useful in this format.
 //
 package uuid
 
