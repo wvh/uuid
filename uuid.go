@@ -15,6 +15,7 @@
 package uuid
 
 import (
+	"bytes"
 	"crypto/rand"
 	"encoding/hex"
 	"errors"
@@ -28,11 +29,18 @@ const (
 	UUID_RANDOM_OFFSET             = 7
 	UUID_STRING_LENGTH             = 32
 	UUID_STRING_LENGTH_WITH_DASHES = 36
+
+	ByteSize               = 16
+	StringLength           = 32
+	StringLengthWithDashes = 36
+	uuidRandomBytes        = 9
+	uuidRandomOffset       = 7
 )
 
 var (
 	// ErrInvalidUUID means we failed to parse the given uuid.
 	ErrInvalidUUID = errors.New("error parsing uuid")
+	nilUuid        = UUID{}
 	//NullUuid UUID = UUID{}
 )
 
@@ -73,8 +81,8 @@ func (u UUID) String() string {
 }
 
 // Array returns a ref to underlying type [16]byte, for modification.
-func (u *UUID) Array() *[16]byte {
-	return (*[16]byte)(u)
+func (u *UUID) Array() *[UUID_BYTES]byte {
+	return (*[UUID_BYTES]byte)(u)
 }
 
 // Bytes returns the UUID as a byte slice.
@@ -129,6 +137,21 @@ func (u *UUID) UnmarshalBinary(b []byte) error {
 	}
 	copy(u[:], b)
 	return nil
+}
+
+// Nil returns a UUID with all bytes set to zero.
+func Nil() UUID {
+	return nilUuid
+}
+
+// IsNil returns true if a UUID is unset.
+func (u *UUID) IsNil() bool {
+	return *u == nilUuid
+}
+
+// Equal returns true if two UUIDs are equal.
+func Equal(u1 UUID, u2 UUID) bool {
+	return bytes.Equal(u1[:], u2[:])
 }
 
 // hexOnly filters any non-hexadecimal characters out of a string.
