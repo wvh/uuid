@@ -12,3 +12,5 @@ the last 9 bytes are cryptographically secure random bits.
 The benefits of this form of UUID are chronological sortability, which is good for database key usage, and a measure of protection against predictability, since it carries at least 72 bits of entropy (9 x 8b). Note that this doesn't necessarily make it a good choice for cryptographic purposes.
 
 This package defaults to the UUID form without dashes, as they're not particularly useful in this format.
+
+Licensed under MIT/ISC license. Use freely. Fixes and improvements welcome.
