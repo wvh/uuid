@@ -1,4 +1,4 @@
-// Copyright 2014–2016 Wouter Van Hemel
+// Copyright 2014–2019 Wouter Van Hemel
 
 // Package uuid generates a 128-bit UUID based on Unix time (similar to one of CouchDB's UUID options).
 //
