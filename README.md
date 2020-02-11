@@ -1,5 +1,6 @@
 [![GoDoc](https://godoc.org/github.com/wvh/uuid?status.svg)](https://godoc.org/github.com/wvh/uuid)
 [![Build Status](https://travis-ci.org/wvh/uuid.svg?branch=master)](https://travis-ci.org/wvh/uuid)
+[![Test](https://github.com/wvh/uuid/workflows/Test/badge.svg)](https://github.com/wvh/uuid/actions?query=workflow:Test)
 [![Go Report Card](https://goreportcard.com/badge/github.com/wvh/uuid)](https://goreportcard.com/report/github.com/wvh/uuid)
 
 # uuid
